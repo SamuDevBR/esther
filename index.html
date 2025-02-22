@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Pergunta</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      overflow: hidden;
+    }
+    .container {
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      border-radius: 15px;
+      background-color: #222;
+      z-index: 2;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+    .opcao {
+      display: flex;
+      align-items: center;
+      background-color: #333;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .opcao:hover {
+      background-color: #444;
+    }
+    .opcao img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+    .opcao p {
+      margin: 0;
+      font-size: 18px;
+    }
+    .hidden {
+      display: none;
+    }
+    #video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: none;
+      z-index: 1;
+    }
+    .question-section {
+      display: block;
+      z-index: 2;
+    }
+    #accept-section {
+      display: block;
+    }
+    #message {
+      display: none;
+      font-size: 20px;
+      margin-top: 20px;
+      color: #ff0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Seção de Aceitação -->
+    <div id="accept-section">
+      <h1>Antes de desbloquear o vídeo, será necessário responder uma pergunta. Você aceita?</h1>
+      <div class="opcao" onclick="mostrarPergunta()">
+        <p>Sim</p>
+      </div>
+      <div class="opcao" onclick="mostrarMensagem()">
+        <p>Não</p>
+      </div>
+    </div>
+
+    <!-- Mensagem de brincadeira -->
+    <div id="message" class="hidden">
+      <p>Para de palhaçada, quem manda aqui nesse site sou eu kkkkkk</p>
+    </div>
+
+    <!-- Seção de Pergunta -->
+    <div id="question-section" class="hidden">
+      <h1>Quem faz o melhor temaki do Brasil?</h1>
+      <div class="opcao" onclick="verificarResposta(1)">
+        <img src="https://placekitten.com/40/40" alt="Dachô">
+        <p>1 - Dachô (Melhor Restaurante Japonês de Araçatuba)</p>
+      </div>
+      <div class="opcao" onclick="verificarResposta(2)">
+        <img src="https://placekitten.com/40/40" alt="Takamasa">
+        <p>2 - Takamasa Nakanori (Criador do Temaki)</p>
+      </div>
+      <div class="opcao" onclick="verificarResposta(3)">
+        <img src="https://placekitten.com/40/40" alt="Esther">
+        <p>3 - Esther (Rapunzel de Birigui)</p>
+      </div>
+      <div class="opcao" onclick="verificarResposta(4)">
+        <img src="https://placekitten.com/40/40" alt="Érick">
+        <p>4 - Chefe Érick Jacquin (Jurado do MasterChef)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção de Vídeo -->
+  <div id="video">
+    <!-- Embed do vídeo do YouTube -->
+    <iframe src="https://player.vimeo.com/video/1059198470" width="100%" height="100%" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    function mostrarPergunta() {
+      // Esconde a seção de aceitação e mostra a pergunta
+      document.getElementById('accept-section').style.display = 'none';
+      document.getElementById('question-section').style.display = 'block';
+    }
+
+    function mostrarMensagem() {
+      // Esconde a seção de aceitação e exibe a mensagem de brincadeira
+      document.getElementById('accept-section').style.display = 'none';
+      document.getElementById('message').style.display = 'block';
+      
+      // Após a mensagem ser exibida por 3 segundos, exibe a pergunta novamente
+      setTimeout(function() {
+        document.getElementById('message').style.display = 'none';
+        document.getElementById('question-section').style.display = 'block';
+      }, 3000);  // 3 segundos para exibir a mensagem
+    }
+
+    function verificarResposta(resposta) {
+      // Verifica se a resposta é a correta (resposta 3)
+      if (resposta === 3) {
+        // Esconde a seção de perguntas e a container, mostrando o vídeo expandido
+        document.querySelector('.container').style.display = 'none';
+        document.getElementById('video').style.display = 'block';
+      } else {
+        // Se a resposta estiver errada, mostra um alerta
+        alert("Resposta errada! Tente novamente.");
+      }
+    }
+  </script>
+</body>
+</html>
