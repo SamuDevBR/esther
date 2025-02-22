@@ -81,13 +81,37 @@
       color: #ff0;
       font-weight: bold;
     }
+    #success-message {
+      display: none;
+      font-size: 20px;
+      color: #0f0;
+      margin-top: 20px;
+    }
+    #go-to-video {
+      background-color: #333;
+      padding: 10px 20px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    #go-to-video:hover {
+      background-color: #444;
+    }
+    #error-message {
+      display: none;
+      font-size: 20px;
+      color: #f00;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Seção de Aceitação -->
     <div id="accept-section">
-      <h1>Antes de desbloquear a surpresa, será necessário responder uma pergunta. Você aceita?</h1>
+      <h1>Esther, antes de desbloquear a surpresa, será necessário responder uma pergunta. Você aceita?</h1>
       <div class="opcao" onclick="mostrarPergunta()">
         <p>Sim</p>
       </div>
@@ -105,21 +129,33 @@
     <div id="question-section" class="hidden">
       <h1>Quem faz o melhor temaki do Brasil?</h1>
       <div class="opcao" onclick="verificarResposta(1)">
-        <img src="https://placekitten.com/40/40" alt="Dachô">
-        <p>1 - Dachô (Melhor Restaurante Japonês de Araçatuba)</p>
+        <img src="dacho.png" alt="Dachô">
+        <p>Dachô (Melhor Japonês de Araçatuba)</p>
       </div>
       <div class="opcao" onclick="verificarResposta(2)">
-        <img src="https://placekitten.com/40/40" alt="Takamasa">
-        <p>2 - Takamasa Nakanori (Criador do Temaki)</p>
+        <img src="takamassa.png" alt="Takamasa">
+        <p>Takamasa Nakanori (Criador do Temaki)</p>
       </div>
       <div class="opcao" onclick="verificarResposta(3)">
-        <img src="https://placekitten.com/40/40" alt="Esther">
-        <p>3 - Esther (Rapunzel de Birigui)</p>
+        <img src="esther.png" alt="Esther">
+        <p>Esther (Rapunzel de Birigui)</p>
       </div>
       <div class="opcao" onclick="verificarResposta(4)">
-        <img src="https://placekitten.com/40/40" alt="Érick">
-        <p>4 - Chefe Érick Jacquin (Jurado do MasterChef)</p>
+        <img src="erick.png" alt="Érick">
+        <p>Chefe Érick Jacquin (Jurado do MasterChef)</p>
       </div>
+    </div>
+
+    <!-- Mensagem de sucesso após resposta correta -->
+    <div id="success-message" class="hidden">
+      <p>Você acertou! Aumente o volume no máximo do seu celular e aproveite.</p>
+      <div id="go-to-video" onclick="irParaOVideo()">Ir para o vídeo</div>
+    </div>
+
+    <!-- Mensagem de erro após resposta errada -->
+    <div id="error-message" class="hidden">
+      <p>Para de palhaçada! Você sabe quem faz o melhor.</p>
+      <div class="opcao" onclick="recomeçar()">Tentar novamente</div>
     </div>
   </div>
 
@@ -151,13 +187,28 @@
     function verificarResposta(resposta) {
       // Verifica se a resposta é a correta (resposta 3)
       if (resposta === 3) {
-        // Esconde a seção de perguntas e a container, mostrando o vídeo expandido
-        document.querySelector('.container').style.display = 'none';
-        document.getElementById('video').style.display = 'block';
+        // Esconde a seção de perguntas e exibe a mensagem de sucesso
+        document.getElementById('question-section').style.display = 'none';
+        document.getElementById('success-message').style.display = 'block';
       } else {
-        // Se a resposta estiver errada, mostra um alerta
-        alert("Resposta errada! Tente novamente.");
+        // Exibe a mensagem de erro se a resposta estiver errada
+        document.getElementById('question-section').style.display = 'none';
+        document.getElementById('error-message').style.display = 'block';
       }
+    }
+
+    function irParaOVideo() {
+      // Esconde a mensagem de sucesso e mostra o vídeo
+      document.getElementById('success-message').style.display = 'none';
+      document.getElementById('video').style.display = 'block';
+      // Esconde a container enquanto o vídeo é exibido
+      document.querySelector('.container').style.display = 'none';
+    }
+
+    function recomeçar() {
+      // Esconde a mensagem de erro e exibe a pergunta novamente
+      document.getElementById('error-message').style.display = 'none';
+      document.getElementById('question-section').style.display = 'block';
     }
   </script>
 </body>
